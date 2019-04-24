@@ -104,3 +104,13 @@
 .mt {
   margin-top: 15px;
 }
+
+.inline-table {
+  display: inline;
+  table-layout: fixed;
+  width: 200px;
+}
+
+.inline-table td {
+  width: 50px;
+}

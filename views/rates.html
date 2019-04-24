@@ -3,10 +3,14 @@
   <ul class="card-list">
   {{#each ratesList}}
     <li class="card-list-item">
-      <span>{{this.name}}</span>
+      <table class="inline-table">
+        <tr>
+          <td>({{this.prefix}})</td>
+          <td>${{this.cost}}</td>
+        </tr>
+      </table>
       <span class="pull-right">
         <i data-id="{{this.id}}" class="edit-rate app-icon fa fa-gear"></i>
-        <i data-id="{{this.id}}" class="remove-rate app-icon fa fa-trash"></i>
       </span>
     </li>
   {{else}}

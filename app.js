@@ -1,8 +1,6 @@
 define(function (require) {
   const $ = require('jquery')
   const monster = require('monster')
-  const utils = require('./utils')
-  const c = require('./constants')
 
   const app = {
     name: 'rating',
@@ -17,6 +15,14 @@ define(function (require) {
     requests: {
       'rates.list': {
         url: 'rates',
+        verb: 'GET'
+      },
+      'rates.start': {
+        url: 'tasks/{taskId}',
+        verb: 'PATCH'
+      },
+      'rates.check': {
+        url: 'tasks/{taskId}',
         verb: 'GET'
       }
     },
@@ -89,7 +95,7 @@ define(function (require) {
     updateList: function (template, cb) {
       const self = this
 
-      this.listRates(function (ratesList) {
+      self.listRates(ratesList => {
         const results = monster.template(self, 'rates', { ratesList: ratesList })
 
         template
@@ -104,7 +110,7 @@ define(function (require) {
     bindEvents: function (template) {
       const self = this
 
-      template.find('#new-rate').on('click', function (e) {
+      template.find('#new-rate').on('click', e => {
         const dialogTemplate = $(self.getTemplate({
           name: 'dialog-rate',
           data: {
@@ -134,7 +140,54 @@ define(function (require) {
 
       template.find('#import-rates').on('click', function (e) {
         e.preventDefault()
-        alert('HERE')
+
+        self.importRates($('[name=csv]')[0].files[0], req => {
+          const taskId = JSON.parse(req.response).data._read_only.id
+
+          self.startImport(taskId, () => {
+            const timer = setInterval(() => {
+              self.checkImport(taskId, () => {
+                clearInterval(timer)
+                self.updateList(template)
+              })
+            }, 1000)
+          })
+        })
+      })
+
+      template.find('#export-rates').on('click', function (e) {
+        e.preventDefault()
+
+        self.exportRates(req => {
+          const taskId = JSON.parse(req.response).data._read_only.id
+
+          self.startImport(taskId, () => {
+            const timer = setInterval(() => {
+              self.checkImport(taskId, data => {
+                clearInterval(timer)
+              })
+            }, 1000)
+          })
+        })
+      })
+
+      template.find('#delete-rates').on('click', function (e) {
+        e.preventDefault()
+
+        monster.ui.confirm(self.i18n.active().rate.deleteRateConfirmation, function () {
+          self.deleteRates($('[name=csv]')[0].files[0], req => {
+            const taskId = JSON.parse(req.response).data._read_only.id
+
+            self.startImport(taskId, () => {
+              const timer = setInterval(() => {
+                self.checkImport(taskId, () => {
+                  clearInterval(timer)
+                  self.updateList(template)
+                })
+              }, 1000)
+            })
+          })
+        })
       })
 
       template.on('click', '.edit-rate', function (e) {
@@ -145,7 +198,6 @@ define(function (require) {
               date: self.rateToForm(rate)
             }
           }))
-
 
           monster.ui.dialog(dialogTemplate, {
             title: self.i18n.active().rate.updateRate,
@@ -165,14 +217,6 @@ define(function (require) {
                 $(this).dialog('close', true)
               }
             }]
-          })
-        })
-      })
-
-      template.on('click', '.remove-rate', function (e) {
-        monster.ui.confirm(self.i18n.active().rate.deleteRateConfirmation, function () {
-          self.removeRate($(e.target).attr('data-id'), function () {
-            self.updateList(template)
           })
         })
       })
@@ -197,33 +241,56 @@ define(function (require) {
       })
     },
 
-    listRates: function (callback) {
+    listRates: function (cb) {
       const self = this
 
       monster.request({
         resource: 'rates.list',
-        data: {
-          accountId: self.accountId
-        },
         error: self.errorHandler,
-        success: function (ratesList) {
-          callback && callback(ratesList.data)
+        success: ratesList => {
+          cb(ratesList.data)
         }
       })
     },
 
-    addRate: function (data, callback) {
+    importRates: function (file, cb) {
       const self = this
 
-      this.callApi({
-        resource: 'rates.create',
+      self.uploadPut(`${self.apiUrl}tasks?category=rates&action=import`, file, cb)
+    },
+
+    exportRates: function (cb) {
+      const self = this
+
+      self.uploadPut(`${self.apiUrl}tasks?category=rates&action=export`, null, cb)
+    },
+
+    deleteRates: function (file, cb) {
+      const self = this
+
+      self.uploadPut(`${self.apiUrl}tasks?category=rates&action=delete`, file, cb)
+    },
+
+    startImport: function (id, cb) {
+      monster.request({
+        resource: 'rates.start',
         data: {
-          accountId: self.accountId,
-          data: data
+          taskId: id
         },
         error: self.errorHandler,
-        success: function () {
-          callback && callback()
+        success: cb
+      })
+    },
+
+    checkImport: function (id, cb) {
+      monster.request({
+        resource: 'rates.check',
+        data: {
+          taskId: id
+        },
+        error: self.errorHandler,
+        success: function (data) {
+          data.status !== 'executing' && cb(data)
         }
       })
     },
@@ -245,23 +312,6 @@ define(function (require) {
       })
     },
 
-    removeCarrier: function (id, callback) {
-      const self = this
-
-      this.callApi({
-        resource: 'localResources.delete',
-        data: {
-          accountId: self.accountId,
-          resourceId: id,
-          data: {}
-        },
-        error: self.errorHandler,
-        success: function () {
-          callback && callback()
-        }
-      })
-    },
-
     formToRate: function (form) {
       return Object.assign(form, {
       })
@@ -272,65 +322,27 @@ define(function (require) {
       })
     },
 
-<<<<<<< HEAD
-=======
-    updateArray: function (arr, form) {
-      return arr.reduce((acc, el) => {
-        if (form[el]) {
-          acc.push(el)
-        }
+    uploadPut: function (url, file, cb) {
+      const self = this
 
-        return acc
-      }, [])
-    },
-
-    transposeArray: function (arr, form, dim) {
-      return arr.reduce((acc, el) => {
-        return form[el].reduce((acc, val, idx) => {
-          if (val) {
-            acc[idx].push(el)
-          }
-
-          return acc
-        }, acc)
-      }, new Array(dim).fill(null).map(() => []))
-    },
-
-    transformData: function (data) {
-      return {
-        name: data.name,
-        enabled: data.enabled,
-        flags: data.flags,
-        weight_cost: data.weight_cost || void 0,
-        rules: data.rules,
-        caller_id_type: data.caller_id_type,
-        gateways: utils.zip(
-          data.gateways,
-          data.gatewaysEnabled,
-          data.codecs,
-          data.gatewaysRoute,
-          data.gatewaysUsername,
-          data.gatewaysPassword,
-          data.gatewaysPrefix,
-          data.gatewaysSuffix,
-          data.gatewaysProgressTimeout
-        ).map(gateway => ({
-          server: gateway[0],
-          enabled: gateway[1],
-          codecs: gateway[2],
-          route: gateway[3],
-          username: gateway[4],
-          password: gateway[5],
-          prefix: gateway[6],
-          suffix: gateway[7],
-          progress_timeout: gateway[8] || void 0
-        }))
+      var req = new XMLHttpRequest()
+      req.open('PUT', url)
+      if (file) {
+        req.setRequestHeader('Content-type', 'text/csv')
       }
+      req.setRequestHeader('X-Auth-Token', monster.util.getAuthToken())
+      req.onload = cb.bind(null, req)
+      req.onerror = self.alertHandler
+      req.send(file)
     },
 
->>>>>>> 215ef407ed7953fa63ae542ceef239fbfea9d76e
     errorHandler: function (err) {
       console.error('Error occured:', err)
+    },
+
+    alertHandler: function (err) {
+      this.errorHandler(err)
+      monster.ui.alert(`Error occurred. ${err}`)
     }
   }
 

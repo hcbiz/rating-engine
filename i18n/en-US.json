@@ -3,8 +3,11 @@
 		"description": "Rating application",
 		"welcome": "Welcome, {{variable}}.",
     "importRates": "Import rates",
+    "exportRates": "Export rates",
+    "deleteRates": "Delete rates",
     "listOfRates": "Rates",
     "noRates": "No rates exist.",
-    "prefix": "Prefix"
+    "prefix": "Prefix",
+    "deleteRateConfirmation": "Are you sure you want to delete these rate?"
 	}
 }

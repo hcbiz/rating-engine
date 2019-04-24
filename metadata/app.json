@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
 	"name": "rating",
-=======
-	"name": "carrier",
->>>>>>> 215ef407ed7953fa63ae542ceef239fbfea9d76e
   "api_url": "https://hostedcommunication.com:8443/v2",
 	"i18n": {
 		"en-US": {

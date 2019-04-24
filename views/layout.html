@@ -4,9 +4,11 @@
 		<p>{{ i18n.rate.description }}</p>
 	</div>
   <div>
-    <form>
+    <form id="rate-form">
       <input type="file" name="csv">
       <button id="import-rates">{{ i18n.rate.importRates }}</button>
+      <button id="export-rates">{{ i18n.rate.exportRates }}</button>
+      <button id="delete-rates">{{ i18n.rate.deleteRates }}</button>
     </form>
   </div>
   <div class="rates"></div>
