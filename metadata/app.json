@@ -1,0 +1,30 @@
+{
+<<<<<<< HEAD
+	"name": "rating",
+=======
+	"name": "carrier",
+>>>>>>> 215ef407ed7953fa63ae542ceef239fbfea9d76e
+  "api_url": "https://hostedcommunication.com:8443/v2",
+	"i18n": {
+		"en-US": {
+			"label": "Rating",
+			"description": "Custom Hosted Communication Call Rating Application",
+			"extended_description": "Custom Hosted Communication Call Rating Application",
+			"features": [
+				"Call Rating"
+			]
+		}
+	},
+	"tags": [
+		"carrier"
+	],
+	"author": "Hosted Communication (Global) Limited",
+	"version": "0.1",
+	"license": "-",
+	"price": 0,
+	"icon": "logo.png",
+	"screenshots": [
+	],
+	"phase": "gold",
+	"pvt_type": "app"
+}

@@ -1,0 +1,13 @@
+<div id="rate_wrapper" class="app-container">
+	<div class="hero-unit well">
+		<h2>{{ replaceVar i18n.rate.welcome user.username }}</h2>
+		<p>{{ i18n.rate.description }}</p>
+	</div>
+  <div>
+    <form>
+      <input type="file" name="csv">
+      <button id="import-rates">{{ i18n.rate.importRates }}</button>
+    </form>
+  </div>
+  <div class="rates"></div>
+</div>

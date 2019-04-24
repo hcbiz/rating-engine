@@ -1,0 +1,10 @@
+{
+	"rate": {
+		"description": "Rating application",
+		"welcome": "Welcome, {{variable}}.",
+    "importRates": "Import rates",
+    "listOfRates": "Rates",
+    "noRates": "No rates exist.",
+    "prefix": "Prefix"
+	}
+}

@@ -1,0 +1,106 @@
+.app-container {
+  margin: auto;
+  width: 50%;
+}
+
+.card-list {
+  margin: 0;
+}
+
+.card-list-item {
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(rgb(240, 240, 240) 0px, rgb(249, 249, 249) 100%);
+  background-origin: padding-box;
+  background-position: 0% 0%;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  border-bottom-color: rgb(204, 204, 204);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(204, 204, 204);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(204, 204, 204);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(204, 204, 204);
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  cursor: pointer;
+  float: left;
+  font-size: 14px;
+  height: 60px;
+  line-height: 50px;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  width: 100%;
+}
+
+.dialog-inner {
+  padding: 10px;
+}
+
+.app-icon {
+  margin-left: 5px;
+}
+
+.app-checkbox {
+  vertical-align: baseline;
+}
+
+.long-list-item {
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(rgb(240, 240, 240) 0px, rgb(249, 249, 249) 100%);
+  background-origin: padding-box;
+  background-position: 0% 0%;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  border-bottom-color: rgb(204, 204, 204);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(204, 204, 204);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(204, 204, 204);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(204, 204, 204);
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  cursor: pointer;
+  float: left;
+  font-size: 14px;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  width: 100%;
+}
+
+.mt {
+  margin-top: 15px;
+}

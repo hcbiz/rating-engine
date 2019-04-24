@@ -1,0 +1,16 @@
+<div class="rates-wrapper">
+  <h3>{{ i18n.rates.listOfRates }}</h3>
+  <ul class="card-list">
+  {{#each ratesList}}
+    <li class="card-list-item">
+      <span>{{this.name}}</span>
+      <span class="pull-right">
+        <i data-id="{{this.id}}" class="edit-rate app-icon fa fa-gear"></i>
+        <i data-id="{{this.id}}" class="remove-rate app-icon fa fa-trash"></i>
+      </span>
+    </li>
+  {{else}}
+    <li>{{ @root.i18n.rate.noRates }}</li>
+  {{/each}}
+  </ul>
+</div>
