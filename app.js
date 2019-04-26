@@ -231,6 +231,11 @@ define(function (require) {
     },
 
     registerPartials: function () {
+      window.Handlebars.registerHelper({
+        referenceProp: function (obj, key) {
+          return !obj || ~obj.indexOf(key)
+        }
+      })
     },
 
     getRate: function (id, callback) {
@@ -320,7 +325,8 @@ define(function (require) {
 
     formToRate: function (form) {
       return Object.assign(form, {
-        rate_cost: Number(form.rate_cost)
+        rate_cost: Number(form.rate_cost),
+        direction: form.direction || []
       })
     },
 

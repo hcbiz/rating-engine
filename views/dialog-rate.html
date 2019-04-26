@@ -36,6 +36,22 @@
             <input type="number" name="weight" value="{{ this.rate.weight }}" />
           </td>
         </tr>
+        <tr>
+          <td>
+            <span>{{ i18n.rate.rateInbound }}:</span>
+          </td>
+          <td>
+            <input type="checkbox" name="direction[]" value="inbound" {{#if (referenceProp @root.rate.direction "inbound") }}checked{{/if}}/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>{{ i18n.rate.rateOutbound }}:</span>
+          </td>
+          <td>
+            <input type="checkbox" name="direction[]" value="outbound" {{#if (referenceProp @root.rate.direction "outbound") }}checked{{/if}}/>
+          </td>
+        </tr>
       </table>
     </form>
   </div>
