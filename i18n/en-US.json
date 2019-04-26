@@ -16,6 +16,10 @@
     "rateCost": "Cost",
     "rateWeigth": "Weight",
     "rateInbound": "Inbound",
-    "rateOutbound": "Outbound"
+    "rateOutbound": "Outbound",
+    "rateIncrement": "Increment",
+    "rateMinimum": "Minimum",
+    "rateNoChargeTime": "No charge time",
+    "rateSurcharge": "Surcharge"
 	}
 }

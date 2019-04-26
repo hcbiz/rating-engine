@@ -61,6 +61,14 @@
   vertical-align: baseline;
 }
 
+.app-input {
+  vertical-align: baseline;
+}
+
+.aligned-label {
+  vertical-align: super;
+}
+
 .long-list-item {
   list-style: none;
   background-color: rgba(0, 0, 0, 0);

@@ -6,7 +6,7 @@
       <table class="inline-table">
         <tr>
           <td>
-            <span>{{ i18n.rate.prefix }}:</span>
+            <span class="aligned-label">{{ i18n.rate.prefix }}:</span>
           </td>
           <td>
             <input type="text" name="prefix" value="{{ this.rate.prefix }}" readonly/>
@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td>
-            <span>{{ i18n.rate.rateName }}:</span>
+            <span class="aligned-label">{{ i18n.rate.rateName }}:</span>
           </td>
           <td>
             <input type="text" name="rate_name" value="{{ this.rate.rate_name }}" />
@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <td>
-            <span>{{ i18n.rate.rateCost }}:</span>
+            <span class="aligned-label">{{ i18n.rate.rateCost }}:</span>
           </td>
           <td>
             <input type="text" name="rate_cost" value="{{ this.rate.rate_cost }}" step="any"/>
@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <td>
-            <span>{{ i18n.rate.rateWeigth }}:</span>
+            <span class="aligned-label">{{ i18n.rate.rateWeigth }}:</span>
           </td>
           <td>
             <input type="number" name="weight" value="{{ this.rate.weight }}" />
@@ -50,6 +50,38 @@
           </td>
           <td>
             <input type="checkbox" name="direction[]" value="outbound" {{#if (referenceProp @root.rate.direction "outbound") }}checked{{/if}}/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="aligned-label">{{ i18n.rate.rateIncrement }}:</span>
+          </td>
+          <td>
+            <input type="number" name="rate_increment" value="{{ this.rate.rate_increment }}" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="aligned-label">{{ i18n.rate.rateMinimum }}:</span>
+          </td>
+          <td>
+            <input type="number" name="rate_minimum" value="{{ this.rate.rate_minimum }}" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="aligned-label">{{ i18n.rate.rateNoChargeTime }}:</span>
+          </td>
+          <td>
+            <input type="number" name="rate_nocharge_time" value="{{ this.rate.rate_nocharge_time }}" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="aligned-label">{{ i18n.rate.rateSurcharge }}:</span>
+          </td>
+          <td>
+            <input type="number" name="rate_surcharge" value="{{ this.rate.rate_surcharge }}" />
           </td>
         </tr>
       </table>

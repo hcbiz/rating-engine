@@ -332,6 +332,10 @@ define(function (require) {
 
     rateToForm: function (rate) {
       return Object.assign(rate, {
+        rate_increment: rate.rate_increment || 60,
+        rate_minimum: rate.rate_minimum || 60,
+        rate_nocharge_time: rate.rate_nocharge_time || 0,
+        rate_surcharge: rate.rate_surcharge || 0
       })
     },
 
