@@ -8,6 +8,12 @@
     "listOfRates": "Rates",
     "noRates": "No rates exist.",
     "prefix": "Prefix",
-    "deleteRateConfirmation": "Are you sure you want to delete these rate?"
+    "deleteRateConfirmation": "Are you sure you want to delete these rate?",
+    "updateRate": "Update rate",
+    "save": "Save",
+    "cancel": "Cancel",
+    "rateName": "Name",
+    "rateCost": "Cost",
+    "rateWeigth": "Weight"
 	}
 }

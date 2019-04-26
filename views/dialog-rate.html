@@ -1,12 +1,42 @@
 <div class="dialog">
   <div class="dialog-inner">
-    <form id="rate-form">
-      <input type="hidden" name="resourceId" value="{{ this.rate.id }}"/>
+    <form id="edit-rate-form">
+      <input type="hidden" name="_id" value="{{ this.rate.id }}"/>
 
-      <div>
-        <span>{{ i18n.rate.prefix }}:</span>
-        <input type="text" name="name" value="{{ this.rate.prefix }}"/>
-      </div>
+      <table class="inline-table">
+        <tr>
+          <td>
+            <span>{{ i18n.rate.prefix }}:</span>
+          </td>
+          <td>
+            <input type="text" name="prefix" value="{{ this.rate.prefix }}" readonly/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>{{ i18n.rate.rateName }}:</span>
+          </td>
+          <td>
+            <input type="text" name="rate_name" value="{{ this.rate.rate_name }}" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>{{ i18n.rate.rateCost }}:</span>
+          </td>
+          <td>
+            <input type="text" name="rate_cost" value="{{ this.rate.rate_cost }}" step="any"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>{{ i18n.rate.rateWeigth }}:</span>
+          </td>
+          <td>
+            <input type="number" name="weight" value="{{ this.rate.weight }}" />
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 </div>

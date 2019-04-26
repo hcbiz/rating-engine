@@ -13,9 +13,17 @@ define(function (require) {
 
     // Defines API requests not included in the SDK
     requests: {
+      'rates.fetch': {
+        url: 'rates/{rateId}',
+        verb: 'GET'
+      },
       'rates.list': {
         url: 'rates',
         verb: 'GET'
+      },
+      'rates.update': {
+        url: 'rates/{rateId}',
+        verb: 'PATCH'
       },
       'rates.start': {
         url: 'tasks/{taskId}',
@@ -110,7 +118,7 @@ define(function (require) {
     bindEvents: function (template) {
       const self = this
 
-      template.find('#new-rate').on('click', e => {
+      template.find('#new-rate').on('click', function (e) {
         const dialogTemplate = $(self.getTemplate({
           name: 'dialog-rate',
           data: {
@@ -195,7 +203,7 @@ define(function (require) {
           const dialogTemplate = $(self.getTemplate({
             name: 'dialog-rate',
             data: {
-              date: self.rateToForm(rate)
+              rate: self.rateToForm(rate)
             }
           }))
 
@@ -211,7 +219,7 @@ define(function (require) {
               text: self.i18n.active().rate.save,
               icon: 'ui-icon-heart',
               click: function () {
-                self.updateRate(self.formToRate(monster.ui.getFormData('rate-form')), function () {
+                self.updateRate(self.formToRate(monster.ui.getFormData('edit-rate-form')), function () {
                   self.updateList(template)
                 })
                 $(this).dialog('close', true)
@@ -228,11 +236,10 @@ define(function (require) {
     getRate: function (id, callback) {
       const self = this
 
-      this.callApi({
-        resource: 'rates.get',
+      monster.request({
+        resource: 'rates.fetch',
         data: {
-          accountId: self.accountId,
-          resourceId: id
+          rateId: id
         },
         error: self.errorHandler,
         success: function (rate) {
@@ -298,11 +305,10 @@ define(function (require) {
     updateRate: function (data, callback) {
       const self = this
 
-      this.callApi({
+      monster.request({
         resource: 'rates.update',
         data: {
-          accountId: self.accountId,
-          resourceId: data.resourceId,
+          rateId: data._id,
           data: data
         },
         error: self.errorHandler,
@@ -314,6 +320,7 @@ define(function (require) {
 
     formToRate: function (form) {
       return Object.assign(form, {
+        rate_cost: Number(form.rate_cost)
       })
     },
 
@@ -333,6 +340,7 @@ define(function (require) {
       req.setRequestHeader('X-Auth-Token', monster.util.getAuthToken())
       req.onload = cb.bind(null, req)
       req.onerror = self.alertHandler
+
       req.send(file)
     },
 
