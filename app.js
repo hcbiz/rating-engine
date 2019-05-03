@@ -21,6 +21,10 @@ define(function (require) {
         url: 'rates',
         verb: 'GET'
       },
+      'rates.delete': {
+        url: 'rates',
+        verb: 'DELETE'
+      },
       'rates.update': {
         url: 'rates/{rateId}',
         verb: 'PATCH'
@@ -163,37 +167,12 @@ define(function (require) {
         })
       })
 
-      template.find('#export-rates').on('click', function (e) {
-        e.preventDefault()
-
-        self.exportRates(req => {
-          const taskId = JSON.parse(req.response).data._read_only.id
-
-          self.startImport(taskId, () => {
-            const timer = setInterval(() => {
-              self.checkImport(taskId, data => {
-                clearInterval(timer)
-              })
-            }, 1000)
-          })
-        })
-      })
-
       template.find('#delete-rates').on('click', function (e) {
         e.preventDefault()
 
         monster.ui.confirm(self.i18n.active().rate.deleteRateConfirmation, function () {
-          self.deleteRates($('[name=csv]')[0].files[0], req => {
-            const taskId = JSON.parse(req.response).data._read_only.id
-
-            self.startImport(taskId, () => {
-              const timer = setInterval(() => {
-                self.checkImport(taskId, () => {
-                  clearInterval(timer)
-                  self.updateList(template)
-                })
-              }, 1000)
-            })
+          self.deleteRates($(e.target).attr('data-id'), function () {
+            self.updateList(template)
           })
         })
       })
@@ -277,10 +256,17 @@ define(function (require) {
       self.uploadPut(`${self.apiUrl}tasks?category=rates&action=export`, null, cb)
     },
 
-    deleteRates: function (file, cb) {
+    deleteRates: function (id, cb) {
       const self = this
 
-      self.uploadPut(`${self.apiUrl}tasks?category=rates&action=delete`, file, cb)
+      monster.request({
+        resource: 'rates.delete',
+        data: {
+          taskId: id
+        },
+        error: self.errorHandler,
+        success: cb
+      })
     },
 
     startImport: function (id, cb) {
